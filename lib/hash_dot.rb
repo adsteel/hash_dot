@@ -16,8 +16,7 @@ class Hash
     prop = create_prop(method)
 
     if self[prop].nil?
-      self[prop] = self[prop.to_s]
-      self.delete(prop.to_s)
+      self[prop] = self.delete(prop.to_s)
     end
 
     super(method, args) and return if self[prop].nil?
