@@ -8,6 +8,8 @@ HashDot allows you to call your Ruby hash properties with a dot syntax. Simply i
   user.job.title #=> 'Programmer'
   user.job.title = 'Senior Programmer'
   user.job.title #=> 'Senior Programmer'
+  user.job.delete(:title)
+  user.job.title #=> NoMethodError
 ```
 
 
@@ -32,7 +34,7 @@ Or install it yourself as:
 Benchmarks should be taken with a grain of salt, as always. For example, OpenStruct is much slower to initialize, but calls its methods faster once initialized. The OpenStruct solution also can't traverse more than a single dot without recursively instantiating all sub-hashes into OpenStructs.
 
 ```Ruby
-require 'open_struct'
+require 'ostruct'
 require 'benchmark'
 require 'hash_dot'
 
@@ -76,7 +78,7 @@ Dot Notation Single:  0.080000   0.000000   0.080000 (  0.082606)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/adsteel/hash_dot. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/adsteel/hash_dot. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct.
 
 
 ## License
