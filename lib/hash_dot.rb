@@ -11,8 +11,18 @@ class Symbol
   end
 end
 
+module HashDot
+  class << self
+    attr_accessor :universal_dot_syntax
+
+    universal_dot_syntax ||= false
+  end
+end
+
 class Hash
   def method_missing(method, *args)
+    return super(method, *args) unless HashDot.universal_dot_syntax
+
     prop = create_prop(method)
 
     if self[prop].nil?

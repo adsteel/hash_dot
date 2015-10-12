@@ -1,8 +1,11 @@
 # HashDot
 
-HashDot allows you to call your Ruby hash properties with a dot syntax. Simply include the gem in your project and starting using the dot syntax.
+HashDot allows you to call your Ruby hash properties with a dot syntax.
 
 ```ruby
+  require 'hash_dot'
+  HashDot.universal_dot_syntax = true
+
   user = {name: 'Anna', job: {title: 'Programmer'}}
 
   user.job.title #=> 'Programmer'
@@ -29,6 +32,20 @@ Or install it yourself as:
 
     $ gem install hash_dot
 
+
+## Configuration
+
+To allow dot syntax for all of your hashes, simply configure your app with the following:
+
+```ruby
+HashDot.universal_dot_syntax = true
+```
+
+You can revert to default behavior as well.
+
+```ruby
+HashDot.universal_dot_syntax = false
+```
 
 ## Benchmarks
 Benchmarks should be taken with a grain of salt, as always. For example, OpenStruct is much slower to initialize, but calls its methods faster once initialized. The OpenStruct solution also can't traverse more than a single dot without recursively instantiating all sub-hashes into OpenStructs.
