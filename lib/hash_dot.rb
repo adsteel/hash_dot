@@ -1,7 +1,6 @@
 require "hash_dot/version"
 require 'symbol'
 require 'hash'
-require 'json'
 
 module HashDot
   class << self
