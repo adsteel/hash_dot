@@ -1,15 +1,6 @@
 require "hash_dot/version"
+require 'symbol'
 require 'json'
-
-class Symbol
-  def chop
-    to_s.chop.to_sym
-  end
-
-  def last
-    slice(-1, 1)
-  end
-end
 
 module HashDot
   class << self
