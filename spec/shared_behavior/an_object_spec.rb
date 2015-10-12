@@ -5,12 +5,16 @@ shared_examples 'an object' do |callback|
     {
       name: "Example Name",
       email: "example@gmail.com",
-      address: {
-        street: "1234 Sesame",
-        city: "New York",
-        state: "NY",
-        zip: '12345'
-      }
+      address: address
+    }
+  }
+
+  let(:address) {
+    {
+      street: "1234 Sesame",
+      city: "New York",
+      state: "NY",
+      zip: '12345'
     }
   }
 
@@ -19,15 +23,13 @@ shared_examples 'an object' do |callback|
   before(:each) do
     result = callback.call
 
-    if result.is_a?(Hash) && result[:subject_method]
-      user.send(result[:subject_method])
-      json_user.send(result[:subject_method])
+    if result.is_a?(Hash) && result[:action]
+      user.send(result[:action])
+      json_user.send(result[:action])
     end
   end
 
-  after(:each) do
-    HashDot.universal_dot_syntax = false
-  end
+  after(:each) { Hash.use_dot_syntax = false }
 
   it 'allows hashes to access nested hashes' do
     expect( user.address.city ).to eq( user[:address][:city] )
@@ -38,7 +40,20 @@ shared_examples 'an object' do |callback|
     user.name = "New Name"
 
     expect( user.address.city ).to eq( "White Plains" )
+    expect( user.address ).to eq( address.merge(city: 'White Plains'))
     expect( user.name ).to eq( "New Name" )
+  end
+
+  it 'allows the dot syntax to access new properties' do
+    user[:suffix] = 'Esquire'
+
+    expect( user.suffix ).to eq( 'Esquire' )
+  end
+
+  it 'raises an error if the property has been deleted' do
+    user.delete(:email)
+
+    expect{ user.email }.to raise_error( NoMethodError )
   end
 
   it 'handles JSON parsing of json strings' do

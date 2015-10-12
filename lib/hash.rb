@@ -1,6 +1,18 @@
 class Hash
+  class << self
+    attr_accessor :use_dot_syntax
+  end
+
+  attr_accessor :use_dot_syntax
+
+  def to_dot
+    dotify_hash(self)
+
+    self
+  end
+
   def method_missing(method, *args)
-    return super(method, *args) unless HashDot.universal_dot_syntax
+    return super(method, *args) unless to_dot?
 
     prop = create_prop(method)
 
@@ -17,13 +29,21 @@ class Hash
     end
   end
 
-  private
+  private def dotify_hash(hash)
+    hash.use_dot_syntax = true
 
-  def setter?(method)
+    hash.keys.each { |key| dotify_hash(hash[key]) if hash[key].is_a?(Hash) }
+  end
+
+  private def to_dot?
+    self.use_dot_syntax || self.class.use_dot_syntax
+  end
+
+  private def setter?(method)
     method.last == "="
   end
 
-  def create_prop(method)
+  private def create_prop(method)
     setter?(method) ? method.chop : method
   end
 end
