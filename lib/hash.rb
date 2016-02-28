@@ -17,10 +17,10 @@ class Hash
     prop = create_prop(method)
 
     if self[prop].nil? && prop_present?(prop)
-      self[prop] = self.delete(prop.to_s)
+      self[prop] = delete(prop.to_s)
     end
 
-    super(method, args) and return unless prop_present?(prop)
+    super(method, args) && return unless prop_present?(prop)
 
     if setter?(method)
       self[prop] = args.first
@@ -38,7 +38,7 @@ class Hash
   end
 
   def to_dot?
-    self.use_dot_syntax || self.class.use_dot_syntax
+    use_dot_syntax || self.class.use_dot_syntax
   end
 
   def setter?(method)
@@ -50,6 +50,6 @@ class Hash
   end
 
   def prop_present?(prop)
-    self.has_key?(prop) || self.has_key?(prop.to_s)
+    key?(prop) || key?(prop.to_s)
   end
 end
