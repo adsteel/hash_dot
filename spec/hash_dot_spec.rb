@@ -23,4 +23,13 @@ describe 'Hash dot syntax' do
 
     it_behaves_like 'an object', -> { {action: :to_dot} }
   end
+
+  context 'given a hash that has a key of value nil' do
+    it 'does not delete the key from the hash' do
+      numbers = { one: 1, two: 2, three: nil }.to_dot
+
+      expect(numbers.three).to be_nil
+      expect{ numbers.four }.to raise_error(NoMethodError)
+    end
+  end
 end

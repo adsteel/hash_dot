@@ -16,11 +16,11 @@ class Hash
 
     prop = create_prop(method)
 
-    if self[prop].nil?
+    if self[prop].nil? && prop_present?(prop)
       self[prop] = self.delete(prop.to_s)
     end
 
-    super(method, args) and return if self[prop].nil?
+    super(method, args) and return unless prop_present?(prop)
 
     if setter?(method)
       self[prop] = args.first
@@ -29,21 +29,27 @@ class Hash
     end
   end
 
-  private def dotify_hash(hash)
+  private
+
+  def dotify_hash(hash)
     hash.use_dot_syntax = true
 
     hash.keys.each { |key| dotify_hash(hash[key]) if hash[key].is_a?(Hash) }
   end
 
-  private def to_dot?
+  def to_dot?
     self.use_dot_syntax || self.class.use_dot_syntax
   end
 
-  private def setter?(method)
+  def setter?(method)
     method.last == "="
   end
 
-  private def create_prop(method)
+  def create_prop(method)
     setter?(method) ? method.chop : method
+  end
+
+  def prop_present?(prop)
+    self.has_key?(prop) || self.has_key?(prop.to_s)
   end
 end
