@@ -5,7 +5,8 @@ shared_examples 'an object' do |callback|
     {
       name: "Example Name",
       email: "example@gmail.com",
-      address: address
+      address: address,
+      phone: nil
     }
   }
 
@@ -69,5 +70,9 @@ shared_examples 'an object' do |callback|
   it 'defaults to expected behavior when non existent methods are applied' do
     expect { json_user.non_existent_method }.to raise_error( NoMethodError )
     expect { user.non_existent_method }.to raise_error( NoMethodError )
+  end
+
+  it 'recognizes a key with a nil value' do
+    expect(user.phone).to be_nil
   end
 end
