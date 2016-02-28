@@ -16,11 +16,7 @@ class Hash
 
     prop = create_prop(method)
 
-    if self[prop].nil? && prop_present?(prop)
-      self[prop] = delete(prop.to_s)
-    end
-
-    super(method, args) && return unless prop_present?(prop)
+    super(method, args) && return unless key?(prop)
 
     if setter?(method)
       self[prop] = args.first
@@ -46,10 +42,12 @@ class Hash
   end
 
   def create_prop(method)
-    setter?(method) ? method.chop : method
+    prop = basic_prop_from_method(method)
+
+    key?(prop.to_s) ? prop.to_s : prop
   end
 
-  def prop_present?(prop)
-    key?(prop) || key?(prop.to_s)
+  def basic_prop_from_method(method)
+    setter?(method) ? method.chop : method
   end
 end

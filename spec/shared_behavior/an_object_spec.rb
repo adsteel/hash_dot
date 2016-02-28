@@ -75,4 +75,11 @@ shared_examples "an object" do |callback|
   it "recognizes a key with a nil value" do
     expect(user.phone).to be_nil
   end
+
+  it "does not alter the hash structure" do
+    original_user = json_user.dup
+    json_user.name
+
+    expect(json_user).to eq(original_user)
+  end
 end
