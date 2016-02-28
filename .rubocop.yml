@@ -1,0 +1,26 @@
+AllCops:
+  TargetRubyVersion: 2.0
+  Include:
+    - 'lib/**/*'
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Style/BlockDelimiters:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: true
+
+Style/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+Style/SpaceInsideParens:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
