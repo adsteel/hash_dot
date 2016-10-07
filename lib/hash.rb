@@ -25,6 +25,13 @@ class Hash
     end
   end
 
+  def respond_to?(method, include_all=false)
+    return super(method, include_all) unless to_dot?
+    prop = create_prop(method)
+    return true if key?(prop)
+    super(method, include_all)
+  end
+  
   private
 
   def dotify_hash(hash)
