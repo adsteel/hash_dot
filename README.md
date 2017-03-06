@@ -1,6 +1,6 @@
 # HashDot
 
-HashDot allows you to call your Ruby hash properties with a dot syntax.
+HashDot allows you to get and set your Ruby hash properties with a dot syntax.
 
 ```ruby
   require 'hash_dot'
@@ -12,6 +12,11 @@ HashDot allows you to call your Ruby hash properties with a dot syntax.
   user.job.title #=> 'Senior Programmer'
   user.job.delete(:title)
   user.job.title #=> NoMethodError
+  user.job.title = 'Engineer'
+  user.job.title #=> 'Engineer'
+  user.job.department = 'DevOps'
+  user.job.department #=> 'DevOps'
+  user #=> {:name=>'Anna', :job=>{:title=>'Engineer', :department=>'DevOps'}}
 ```
 
 You can also allow dot syntax for all hashes via the class setting.

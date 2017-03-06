@@ -16,11 +16,10 @@ class Hash
 
     prop = create_prop(method)
 
-    super(method, args) && return unless key?(prop)
-
     if setter?(method)
       self[prop] = args.first
     else
+      super(method, args) && return unless key?(prop)
       self[prop]
     end
   end
