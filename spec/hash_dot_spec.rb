@@ -21,11 +21,26 @@ describe "Hash dot syntax" do
       expect { two.a }.to raise_error( NoMethodError )
     end
 
+    it "allows dot send access for a nested instance" do
+      one = { a: { b: 1 } }.to_dot
+
+      expect( one.send('a.b') ).to eq( 1 )
+    end
+
     it "allows dot set for a specific instance" do
       one = { a: 1 }.to_dot
       one.b = 2
+
       expect( one.a ).to eq( 1 )
       expect( one.b ).to eq( 2 )
+    end
+
+    it "allows dot send set for a nested instance" do
+      one = { a: { b: nil } }.to_dot
+      one.send("a.b=", 1)
+
+      expect( one.send("a.b") ).to eq( 1 )
+      expect( one.a.b ).to eq( 1 )
     end
 
     it "recognizes keys as methods via #respond_to?" do
