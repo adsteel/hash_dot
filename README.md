@@ -19,7 +19,7 @@ HashDot allows you to get and set your Ruby hash properties with a dot syntax.
   user.send('beverages=', {}.to_dot)
   user.send('beverages.coffee=', 'Short Black')
   user.send('beverages.coffee') #=> 'Short Black'
-  user #=> {:name=>'Anna', :job=>{:title=>'Engineer', :department=>'DevOps'}, :beverages=> 'Short Black'}
+  user #=> {:name=>'Anna', :job=>{:title=>'Engineer', :department=>'DevOps'}, :beverages=> { :coffee => 'Short Black'} }
 ```
 
 You can also allow dot syntax for all hashes via the class setting.

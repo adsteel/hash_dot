@@ -14,7 +14,7 @@ class Hash
   def method_missing(method, *args)
     return super(method, *args) unless to_dot?
     method, chain = method.to_s.split('.', 2).map(&:to_sym)
-    return self.send(method).send(chain, *args) if chain
+    return send(method).send(chain, *args) if chain
     prop = create_prop(method)
 
     if setter?(method)
