@@ -38,5 +38,17 @@ describe "Hash dot syntax" do
     end
 
     it_behaves_like "an object", -> { { action: :to_dot } }
+
+    context "with a use_default set" do
+      it "uses the hash default for unknown methods" do
+        one = { }.to_dot(true)
+        two = { }.to_dot
+        three = Hash.new('hi').to_dot(true)
+
+        expect( one.a ).to eq( nil )
+        expect { two.a }.to raise_error( NoMethodError )
+        expect( three.a ).to be == 'hi'
+      end
+    end
   end
 end
