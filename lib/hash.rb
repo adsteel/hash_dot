@@ -20,15 +20,10 @@ class Hash
 
     if setter?(method)
       self[prop] = args.first
-    elsif key?(prop)
+    elsif key?(prop) || hash_dot_use_default
       self[prop]
     else
-      begin
-        super(method, args)
-      rescue NoMethodError
-        return self.default if hash_dot_use_default
-        raise
-      end
+      super(method, args)
     end
   end
 
