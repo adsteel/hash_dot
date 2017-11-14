@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adsteel/hash_dot.svg?branch=master)](https://travis-ci.org/adsteel/hash_dot)
+
 # HashDot
 
 HashDot allows you to get and set your Ruby hash properties with a dot syntax.
