@@ -7,8 +7,8 @@ class Hash
   attr_accessor :use_dot_syntax
   attr_accessor :hash_dot_use_default
 
-  def to_dot(use_default=false)
-    dotify_hash(self, use_default)
+  def to_dot(use_default: false)
+    dotify_hash(self, use_default: use_default)
 
     self
   end
@@ -41,11 +41,11 @@ class Hash
   
   private
 
-  def dotify_hash(hash, use_default=false)
+  def dotify_hash(hash, use_default: false)
     hash.use_dot_syntax = true
     hash.hash_dot_use_default = use_default
 
-    hash.keys.each { |key| dotify_hash(hash[key], use_default) if hash[key].is_a?(Hash) }
+    hash.keys.each { |key| dotify_hash(hash[key], use_default: use_default) if hash[key].is_a?(Hash) }
   end
 
   def to_dot?

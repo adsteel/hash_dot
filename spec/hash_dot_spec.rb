@@ -41,9 +41,9 @@ describe "Hash dot syntax" do
 
     context "with a use_default set" do
       it "uses the hash default for unknown methods" do
-        one = { }.to_dot(true)
+        one = { }.to_dot(use_default: true)
         two = { }.to_dot
-        three = Hash.new('hi').to_dot(true)
+        three = Hash.new('hi').to_dot(use_default: true)
 
         expect( one.a ).to eq( nil )
         expect { two.a }.to raise_error( NoMethodError )
