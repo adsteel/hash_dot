@@ -20,7 +20,7 @@ class Hash
 
     if setter?(method)
       self[prop] = args.first
-    elsif key?(prop) || hash_dot_use_default
+    elsif key?(prop) || use_default?
       self[prop]
     else
       super(method, args)
@@ -45,6 +45,10 @@ class Hash
 
   def to_dot?
     use_dot_syntax || self.class.use_dot_syntax
+  end
+
+  def use_default?
+    hash_dot_use_default || self.class.hash_dot_use_default
   end
 
   def setter?(method)
