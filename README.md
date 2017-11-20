@@ -29,6 +29,20 @@ Hash.use_dot_syntax = true
 {name: 'Pat'}.name #=> 'Pat'
 ```
 
+By default HashDot raises a `NoMethodError` when accessing a non-existent key with the dot syntax. The value of `Hash#default` can be used instead, either globally or per-instance, via:
+
+```ruby
+# globally
+Hash.use_dot_syntax = true
+Hash.hash_dot_use_default = true
+{}.a #=> 'default'
+
+# per instance
+h = Hash.new('default').to_dot(use_default: true)
+h.a #=> 'default'
+{}.to_dot.a #=> NoMethodError
+```
+
 
 ## Installation
 
