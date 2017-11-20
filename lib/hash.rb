@@ -1,12 +1,14 @@
 class Hash
   class << self
     attr_accessor :use_dot_syntax
+    attr_accessor :hash_dot_use_default
   end
 
   attr_accessor :use_dot_syntax
+  attr_accessor :hash_dot_use_default
 
-  def to_dot
-    dotify_hash(self)
+  def to_dot(use_default: false)
+    dotify_hash(self, use_default: use_default)
 
     self
   end
@@ -18,9 +20,10 @@ class Hash
 
     if setter?(method)
       self[prop] = args.first
-    else
-      super(method, args) && return unless key?(prop)
+    elsif key?(prop) || use_default?
       self[prop]
+    else
+      super(method, args)
     end
   end
 
@@ -33,14 +36,19 @@ class Hash
   
   private
 
-  def dotify_hash(hash)
+  def dotify_hash(hash, use_default: false)
     hash.use_dot_syntax = true
+    hash.hash_dot_use_default = use_default
 
-    hash.keys.each { |key| dotify_hash(hash[key]) if hash[key].is_a?(Hash) }
+    hash.keys.each { |key| dotify_hash(hash[key], use_default: use_default) if hash[key].is_a?(Hash) }
   end
 
   def to_dot?
     use_dot_syntax || self.class.use_dot_syntax
+  end
+
+  def use_default?
+    hash_dot_use_default || self.class.hash_dot_use_default
   end
 
   def setter?(method)

@@ -1,5 +1,7 @@
 require "spec_helper"
 require "shared_behavior/an_object_spec"
+require "shared_behavior/nomethoderror_spec"
+require "shared_behavior/use_default_spec"
 
 describe "Hash dot syntax" do
   context "given default universal hash-dot syntax" do
@@ -10,6 +12,18 @@ describe "Hash dot syntax" do
 
   context "given universal hash-dot syntax" do
     it_behaves_like "an object", -> { Hash.use_dot_syntax = true }
+    it_behaves_like "an object raising NoMethodError", -> { Hash.use_dot_syntax = true }
+
+    context "when respecting defaults" do
+      it_behaves_like "an object", -> {
+        Hash.use_dot_syntax = true
+        Hash.hash_dot_use_default = true
+      }
+      it_behaves_like "an object that respects Hash#default", -> {
+        Hash.use_dot_syntax = true
+        Hash.hash_dot_use_default = true
+      }
+    end
   end
 
   context "when using #to_dot" do
@@ -38,5 +52,21 @@ describe "Hash dot syntax" do
     end
 
     it_behaves_like "an object", -> { { action: :to_dot } }
+    it_behaves_like "an object raising NoMethodError", -> { { action: :to_dot } }
+
+    context "when respecting defaults" do
+      it_behaves_like "an object", -> { { action: :to_dot, args: {use_default: true} } }
+      it_behaves_like "an object that respects Hash#default", -> { { action: :to_dot, args: {use_default: true} } }
+
+      it "uses the hash default for unknown methods" do
+        one = { }.to_dot(use_default: true)
+        two = { }.to_dot
+        three = Hash.new('hi').to_dot(use_default: true)
+
+        expect( one.a ).to eq( nil )
+        expect { two.a }.to raise_error( NoMethodError )
+        expect( three.a ).to be == 'hi'
+      end
+    end
   end
 end
