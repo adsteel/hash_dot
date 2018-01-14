@@ -33,14 +33,28 @@ class Hash
     return true if key?(prop)
     super(method, include_all)
   end
-  
+
   private
+
+  def dotify_obj(obj, use_default: false)
+    case obj
+    when Array
+      obj.each do |el|
+        dotify_obj(el)
+      end
+    when Hash
+      dotify_hash(obj, use_default: use_default)
+    # else no-op
+    end
+  end
 
   def dotify_hash(hash, use_default: false)
     hash.use_dot_syntax = true
     hash.hash_dot_use_default = use_default
 
-    hash.keys.each { |key| dotify_hash(hash[key], use_default: use_default) if hash[key].is_a?(Hash) }
+    hash.each_value do |val|
+      dotify_obj(val)
+    end
   end
 
   def to_dot?
