@@ -51,6 +51,14 @@ describe "Hash dot syntax" do
       expect( two.respond_to?(:a) ).to be_falsey
     end
 
+    it "traverses nested arrays" do
+      one = { a: [ { b: 1 } ] }.to_dot
+      two = { a: [ [ { b: 2 } ] ] }.to_dot
+
+      expect(one.a.first.b).to eq(1)
+      expect(two.a.first.first.b).to eq(2)
+    end
+
     it_behaves_like "an object", -> { { action: :to_dot } }
     it_behaves_like "an object raising NoMethodError", -> { { action: :to_dot } }
 
