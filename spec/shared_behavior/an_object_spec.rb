@@ -6,7 +6,11 @@ shared_examples "an object" do |callback|
       name: "Example Name",
       email: "example@gmail.com",
       address: address,
-      phone: nil
+      phone: nil,
+      friends: [{
+        id: 1,
+        name: "Example friend name"
+      }]
     }
   }
 
@@ -37,6 +41,10 @@ shared_examples "an object" do |callback|
 
   it "allows hashes to access nested hashes" do
     expect( user.address.city ).to eq( user[:address][:city] )
+  end
+
+  it "allows access to hashes in arrays" do
+    expect( user.friends.first.name ).to eq( user[:friends][0][:name] )
   end
 
   it "can set hash properties" do
