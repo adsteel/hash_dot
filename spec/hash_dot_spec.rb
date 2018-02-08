@@ -38,6 +38,7 @@ describe "Hash dot syntax" do
     it "allows dot set for a specific instance" do
       one = { a: 1 }.to_dot
       one.b = 2
+
       expect( one.a ).to eq( 1 )
       expect( one.b ).to eq( 2 )
     end
