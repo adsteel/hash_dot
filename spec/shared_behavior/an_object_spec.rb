@@ -72,6 +72,26 @@ shared_examples "an object" do |callback|
     original_user = json_user.dup
     json_user.name
 
-    expect(json_user).to eq(original_user)
+    expect(json_user).to eq( original_user )
+  end
+
+  it "allows dot send access for a nested instance" do
+    expect( user.send("address.state") ).to eq( "NY" )
+  end
+
+  it "allows dot send set for a nested instance" do
+    user.send("address.state=", "WA")
+
+    expect(user.address.state).to eq( "WA" )
+  end
+
+  it "allows dot public send access for a nested instance" do
+    expect( user.public_send("address.state") ).to eq( "NY" )
+  end
+
+  it "allows dot public send set for a nested instance" do
+    user.public_send("address.state=", "WA")
+
+    expect(user.address.state).to eq( "WA" )
   end
 end
