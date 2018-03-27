@@ -5,6 +5,10 @@ shared_examples "an object" do |callback|
     {
       name: "Example Name",
       email: "example@gmail.com",
+      alt_emails: [
+        { type: "main", email: "foo@example.com" },
+        { type: "tech", email: "bar@example.com" }
+      ],
       address: address,
       phone: nil
     }
@@ -93,5 +97,9 @@ shared_examples "an object" do |callback|
     user.public_send("address.state=", "WA")
 
     expect(user.address.state).to eq( "WA" )
+  end
+
+  it "traverses nested arrays" do
+    expect(user.alt_emails.first.email).to eq("foo@example.com")
   end
 end
