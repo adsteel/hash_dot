@@ -6,6 +6,10 @@ shared_examples "an object that respects Hash#default" do |callback|
       name: "Example Name",
       email: "example@gmail.com",
       address: address,
+      alt_emails: [
+        { type: "main", email: "foo@example.com" },
+        { type: "tech", email: "bar@example.com" }
+      ],
       phone: nil
     }
   }
@@ -39,5 +43,9 @@ shared_examples "an object that respects Hash#default" do |callback|
   it "uses the hash default for unknown methods" do
     expect( user.a ).to eq( nil )
     expect( json_user.a ).to eq( 'hello!' )
+  end
+
+  it "uses the default across array boundaries" do
+    expect( user.alt_emails.first.foo ).to be_nil
   end
 end

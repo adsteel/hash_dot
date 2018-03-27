@@ -44,7 +44,7 @@ class Hash
     case obj
     when Array
       obj.each do |el|
-        dotify_obj(el)
+        dotify_obj(el, use_default: use_default)
       end
     when Hash
       dotify_hash(obj, use_default: use_default)
@@ -57,7 +57,7 @@ class Hash
     hash.hash_dot_use_default = use_default
 
     hash.each_value do |val|
-      dotify_obj(val)
+      dotify_obj(val, use_default: use_default)
     end
   end
 
