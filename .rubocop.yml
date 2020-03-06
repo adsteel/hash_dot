@@ -1,25 +1,46 @@
 AllCops:
-  TargetRubyVersion: 2.0
+  TargetRubyVersion: 2.7
   Include:
     - 'lib/**/*'
     - 'spec/**/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
-Style/Style/BlockDelimiters:
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Layout/SpaceInsideParens:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/BlockDelimiters:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
+Style/ExpandPathArguments:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/MethodMissingSuper:
+  Enabled: false
+
 Style/MutableConstant:
   Enabled: true
 
-Style/SpaceBeforeBlockBraces:
-  EnforcedStyle: space
-
-Style/SpaceInsideParens:
+Style/MissingRespondToMissing:
   Enabled: false
 
 Style/StringLiterals:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "shared_behavior/an_object_spec"
 require "shared_behavior/nomethoderror_spec"
@@ -64,17 +66,17 @@ describe "Hash dot syntax" do
     it_behaves_like "an object raising NoMethodError", -> { { action: :to_dot } }
 
     context "when respecting defaults" do
-      it_behaves_like "an object", -> { { action: :to_dot, args: {use_default: true} } }
-      it_behaves_like "an object that respects Hash#default", -> { { action: :to_dot, args: {use_default: true} } }
+      it_behaves_like "an object", -> { { action: :to_dot, args: { use_default: true } } }
+      it_behaves_like "an object that respects Hash#default", -> { { action: :to_dot, args: { use_default: true } } }
 
       it "uses the hash default for unknown methods" do
-        one = { }.to_dot(use_default: true)
-        two = { }.to_dot
-        three = Hash.new('hi').to_dot(use_default: true)
+        one = {}.to_dot(use_default: true)
+        two = {}.to_dot
+        three = Hash.new("hi").to_dot(use_default: true)
 
         expect( one.a ).to eq( nil )
         expect { two.a }.to raise_error( NoMethodError )
-        expect( three.a ).to be == 'hi'
+        expect( three.a ).to be == "hi"
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Symbol
   def chop
     to_s.chop.to_sym

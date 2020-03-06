@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hash
   class << self
     attr_accessor :use_dot_syntax
@@ -16,7 +18,7 @@ class Hash
   def method_missing(method, *args)
     return super(method, *args) unless to_dot?
 
-    method, chain = method.to_s.split('.', 2).map(&:to_sym)
+    method, chain = method.to_s.split(".", 2).map(&:to_sym)
 
     return send(method).send(chain, *args) if chain
 
@@ -31,10 +33,12 @@ class Hash
     end
   end
 
-  def respond_to?(method, include_all=false)
+  def respond_to?(method, include_all = false)
     return super(method, include_all) unless to_dot?
+
     prop = create_prop(method)
     return true if key?(prop)
+
     super(method, include_all)
   end
 
@@ -48,7 +52,7 @@ class Hash
       end
     when Hash
       dotify_hash(obj, use_default: use_default)
-    # else no-op
+      # else no-op
     end
   end
 
