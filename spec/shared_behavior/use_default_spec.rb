@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 shared_examples "an object that respects Hash#default" do |callback|
@@ -32,7 +34,7 @@ shared_examples "an object that respects Hash#default" do |callback|
       user.send(result[:action], result[:args] || {})
       json_user.send(result[:action], result[:args] || {})
     end
-    json_user.default = 'hello!'
+    json_user.default = "hello!"
   end
 
   after(:each) {
@@ -42,7 +44,7 @@ shared_examples "an object that respects Hash#default" do |callback|
 
   it "uses the hash default for unknown methods" do
     expect( user.a ).to eq( nil )
-    expect( json_user.a ).to eq( 'hello!' )
+    expect( json_user.a ).to eq( "hello!" )
   end
 
   it "uses the default across array boundaries" do
