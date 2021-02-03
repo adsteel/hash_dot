@@ -31,8 +31,8 @@ shared_examples "an object that respects Hash#default" do |callback|
     result = callback.call
 
     if result.is_a?(Hash) && result[:action]
-      user.send(result[:action], result[:args] || {})
-      json_user.send(result[:action], result[:args] || {})
+      user.send(result[:action], **(result[:args] || {}))
+      json_user.send(result[:action], **(result[:args] || {}))
     end
     json_user.default = "hello!"
   end
