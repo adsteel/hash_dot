@@ -27,8 +27,8 @@ shared_examples "an object raising NoMethodError" do |callback|
     result = callback.call
 
     if result.is_a?(Hash) && result[:action]
-      user.send(result[:action], result[:args] || {})
-      json_user.send(result[:action], result[:args] || {})
+      user.send(result[:action], **(result[:args] || {}))
+      json_user.send(result[:action], **(result[:args] || {}))
     end
   end
 
