@@ -1,6 +1,6 @@
 # HashDot
 
-![Build status](https://github.com/adsteel/hash_dot/workflows/workflows.yaml/badge.svg)
+![Build status](https://github.com/adsteel/hash_dot/actions/workflows/workflows.yaml/badge.svg?branch=main)
 
 
 HashDot allows you to get and set your Ruby hash properties with a dot syntax.
