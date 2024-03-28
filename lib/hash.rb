@@ -33,7 +33,7 @@ class Hash
     end
   end
 
-  def respond_to?(method, include_all = false)
+  def respond_to?(method, include_all = false) # rubocop:disable Style/OptionalBooleanParameter
     return super(method, include_all) unless to_dot?
 
     prop = create_prop(method)
