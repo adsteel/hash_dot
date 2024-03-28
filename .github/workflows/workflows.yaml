@@ -14,7 +14,7 @@ jobs:
       - name: Setup linting
         uses: ruby/setup-ruby@v1.173.0
         with:
-          ruby-version: 3.0
+          ruby-version: 3.3
       - name: Install dependencies
         run: bundle install
       - name: Lint
