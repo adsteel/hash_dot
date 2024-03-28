@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup linting
-        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+        uses: ruby/setup-ruby@v1.173.0
         with:
           ruby-version: 3.0
       - name: Install dependencies
@@ -24,11 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.2', '3.1']
+        ruby-version: ['3.3', '3.2', '3.1']
     steps:
       - uses: actions/checkout@v4
       - name: Setup tests with Ruby version ${{ matrix.ruby-version }}
-        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+        uses: ruby/setup-ruby@v1.173.0
         with:
           ruby-version: ${{ matrix.ruby-version }}
       - name: Install dependencies
