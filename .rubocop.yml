@@ -3,6 +3,7 @@ AllCops:
   Include:
     - 'lib/**/*'
     - 'spec/**/*'
+  SuggestExtensions: false
 
 Layout/LineLength:
   Max: 120
@@ -16,10 +17,16 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Layout/SpaceInsideParens:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 Metrics/BlockLength:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Style/AccessorGrouping:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -32,9 +39,6 @@ Style/ExpandPathArguments:
   Enabled: false
 
 Style/Lambda:
-  Enabled: false
-
-Style/MethodMissingSuper:
   Enabled: false
 
 Style/MutableConstant:
